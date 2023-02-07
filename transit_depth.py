@@ -35,8 +35,10 @@ class transit: #may eventually update to be a transit class, with separate keple
 	P = None #orbital period
 	knowns = {}
 	
-
-	def __init__(self, a=None, star_mass=None, planet_mass=None, P=None):
+	#this is clunky, would be a use case for **kwargs.
+	#for now, we are just putting them in by name
+	#easier for non-python users probably.
+	def __init__(self, a=None, star_mass=None, planet_mass=None, P=None, star_rad=None, planet_rad=None):
 		self.knowns = {}
 		self.a = a
 		if a is not None:
@@ -50,11 +52,39 @@ class transit: #may eventually update to be a transit class, with separate keple
 		self.P = P
 		if P is not None:
 			self.knowns["orbital period"] = P
+		self.star_rad = star_rad
+		if star_rad is not None:
+			self.knowns["star radius"] = star_rad
+		self.planet_rad = planet_rad
+		if planet_rad is not None:
+			self.knowns["planet radius"] = planet_rad
 
 	def __str__(self):
 		return f"given values: {self.knowns}"
-		
+
+	def update(self, a=None, star_mass=None, planet_mass=None, P=None, star_rad=None, planet_rad=None):
+		if a is not None:
+			self.a = a
+			self.knowns["major axis length"] = a
+		if star_mass is not None:
+			self.star_mass = star_mass
+			self.knowns["star mass"] = star_mass
+		if planet_mass is not None:
+			self.planet_mass = planet_mass
+			self.knowns["planet mass"] = planet_mass
+		if P is not None:
+			self.P = P
+			self.knowns["orbital period"] = P
+		if star_rad is not None:
+			self.star_rad = star_rad
+			self.knowns["star radius"] = star_rad
+		if planet_rad is not None:
+			self.planet_rad = planet_rad
+			self.knowns["planet radius"] = planet_rad
+
 
 trial_planet = transit(a=1, star_mass=1, P=1)
+print(trial_planet)
+trial_planet.update(star_rad = 2)
 print(trial_planet)
 
