@@ -20,3 +20,31 @@ def transit_depth(star_rad, planet_rad, percent=True):
 
 
 
+class kepler_III:
+    a = None #length of major axis of orbit
+    star_mass = None #mass of star
+    planet_mass = None #mass of planet
+    P = None #orbital period
+    knowns = {}
+
+    def __init__(self, a=None, star_mass=None, planet_mass=None, P=None):
+        self.knowns = {}
+        self.a = a
+        if a is not None:
+            self.knowns["major axis length"] = a
+        self.star_mass = star_mass
+        if star_mass is not None:
+            self.knowns["star mass"] = star_mass
+        self.planet_mass = planet_mass
+        if planet_mass is not None:
+            self.knowns["planet mass"] = planet_mass
+        self.P = P
+        if P is not None:
+            self.knowns["orbital period"] = P
+
+    def __str__(self):
+        return f"given values: {self.knowns}"
+        
+
+
+
