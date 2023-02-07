@@ -1,3 +1,4 @@
+import numpy as np
 """
 transit_depth
 ---parameters: 
@@ -13,7 +14,7 @@ def transit_depth(star_rad, planet_rad, percent=True):
 	ratio = a_planet / a_star
 	percentage = ratio * 100
 	if percent is True:
-        return percentage
+		return percentage
 	else:
 		return ratio
 
