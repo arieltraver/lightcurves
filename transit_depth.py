@@ -28,7 +28,7 @@ def kepler_III_P(a, star_mass, planet_mass):
 	return None
 
 
-class kepler_III: #may eventually update to be a transit class, with separate kepler III methods.
+class transit: #may eventually update to be a transit class, with separate kepler III methods.
 	a = None #length of major axis of orbit
 	star_mass = None #mass of star
 	planet_mass = None #mass of planet
@@ -55,6 +55,6 @@ class kepler_III: #may eventually update to be a transit class, with separate ke
 		return f"given values: {self.knowns}"
 		
 
-trial_planet = kepler_III(a=1, star_mass=1, P=1)
+trial_planet = transit(a=1, star_mass=1, P=1)
 print(trial_planet)
 
