@@ -1,4 +1,4 @@
-import numpy as np
+#import numpy as np
 """
 transit_depth
 ---parameters: 
@@ -18,12 +18,23 @@ def transit_depth(star_rad, planet_rad, percent=True):
 	else:
 		return ratio
 
-class kepler_III:
+def kepler_III_a(star_mass, planet_mass, P):
+	return None
+def kepler_III_star_mass(a, planet_mass, P):
+	return None
+def kepler_III_planet_mass(a, star_mass, P):
+	return None
+def kepler_III_P(a, star_mass, planet_mass):
+	return None
+
+
+class kepler_III: #may eventually update to be a transit class, with separate kepler III methods.
 	a = None #length of major axis of orbit
 	star_mass = None #mass of star
 	planet_mass = None #mass of planet
 	P = None #orbital period
 	knowns = {}
+	
 
 	def __init__(self, a=None, star_mass=None, planet_mass=None, P=None):
 		self.knowns = {}
