@@ -1,4 +1,13 @@
-#import numpy as np
+# imports for importing files
+from google.colab import files
+import io
+# imports for reading in data files and plotting
+# note in Colab can't use interactive plots with matplotlib so plotly instead
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+
 """
 transit_depth
 ---parameters: 
@@ -7,6 +16,75 @@ transit_depth
 ---output: percentage depth
 ---possible use: print(transit_depth(100, 2, percent=False))
 """
+
+'''author: Kim  McLeod'''
+# Make a push button for uploading files
+# Run the cell then push the button
+uploaded = files.upload()
+# Take your favorite uploaded file and read it into a pandas data frame
+# USER: put in the name of your file here
+df = pd.read_csv(io.BytesIO(uploaded['lightcurves.csv']),)
+
+# This will show you what the frame looks like
+# Check to see that the columns look like you think they should!
+#     Note: NaN means not a number
+df.drop(" Corrected Flux", inplace=True, axis=1)
+df
+# This will make a nice interactive plot
+# From the plot you can zoom, pan, and save as a png
+#
+# Note that the label for the second column starts with a space in this case
+# because the .csv column first line was BJD - 2454833, Corrected Flux,
+# with a space after the first comma
+fig = px.scatter(data_frame=df, x=df.index, y="BJD - 2454833", width=1000, height=800)
+fig.show()
+
+# If you want to try the features below, remove the two """
+# Nice option for changing labels and titles
+
+fig.update_layout(
+    title="Plot Title",
+    xaxis_title="X Axis Title",
+    yaxis_title="Y Axis Title",
+    legend_title="Legend Title",
+    font=dict(
+        family="Courier New, monospace",
+        size=18,
+        color="RebeccaPurple"
+    )
+)
+
+
+# add some text and arrows
+fig.add_annotation(x=3440, y=1.025,
+            text="Text annotation with arrow",
+            showarrow=True,
+            arrowhead=1)
+fig.add_annotation(x=3450, y=0.99,
+            text="Text annotation without arrow",
+            showarrow=False,
+            yshift=10)
+
+
+
+# a way to add points and lines to an existing plot
+fig.add_trace(go.Scatter(
+    x=[3440,3440],    # x position of first and second point
+    y=[1,1.008],      # y position of first and second point 
+    name="transit 2"
+))
+
+
+#the plan:
+#transit class contains all possible values about a transit related to our equations
+#it stores a list of lists
+#each list contains the variables needed in an equation
+#every time you give a transit object a new value, it checks each equation to see if it can find more new values
+#it does this recursively until it's done finding new values, and updates them for you
+###perhaps make the auto-updating optional ("new value for {value} found from equation {name}, update?")
+###small problem: removing a value may be difficult, as it would have to backtrack somehow.
+
+
 def transit_depth(star_rad, planet_rad, percent=True):
 	pi = 3.14159
 	a_star = 4 * pi * star_rad * star_rad
@@ -87,4 +165,3 @@ trial_planet = transit(a=1, star_mass=1, P=1)
 print(trial_planet)
 trial_planet.update(star_rad = 2)
 print(trial_planet)
-
